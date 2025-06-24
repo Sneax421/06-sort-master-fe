@@ -25,7 +25,7 @@ const ItemList = () => {
 
 
     if (error)
-        return <div className="text-red-500">Error loading containers.</div>;
+        return <div className="text-red-500">Failed to loading Items.</div>;
 
     return (
         <div className="p-6">

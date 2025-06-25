@@ -7,19 +7,27 @@ import type Container from "../common/types/Container.ts";
 const ItemList = () => {
     const [items, setItems] = useState<Item[]>([]);
     const [containers, setContainers] = useState<Container[]>([]);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        Promise.all([
-            fetch("/api/items").then(res => res.json()),
-            fetch("/api/containers").then(res => res.json())
-        ])
-            .then(([itemsData, containersData]) => {
+        fetch("/api/items")
+            .then(res => res.json())
+            .then(async (itemsData: Item[]) => {
                 setItems(itemsData);
-                setContainers(containersData);
+
+                const uniqIds = Array.from(new Set(itemsData.map(i => i.containerId)));
+
+                const containerList: Container[] = await Promise.all(
+                    uniqIds.map(id =>
+                        fetch(`/api/containers/${id}`).then(res => res.json())
+                    )
+                );
+
+                setContainers(containerList);
             })
-            .catch(setError);
+            .catch(() => setError("Failed to fetch containers or items"));
     }, []);
+
 
     const getContainerById = (id: string) =>
         containers.find(c => c.id === id);

@@ -16,7 +16,7 @@ function App() {
                     <Route path="/about" element={<About/>}/>
                     <Route path="/containers" element={<Containers/>}/>
                     <Route path="/container-form" element={<CreateContainerForm/>}/>
-                    <Route path="/item" element={<Item/>}/>
+                    <Route path="/items" element={<Item/>}/>
                 </Routes>
             </Layout>
         </div>

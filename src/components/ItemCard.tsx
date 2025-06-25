@@ -33,7 +33,7 @@ const ItemCard = ({item, container}: Props) => {
 
             <h3 className="text-lg font-semibold">{item.name}</h3>
             <p className="text-sm text-gray-700">
-                Container: {container.name}
+                Container: {container ? container.name : "Unknown container"}
             </p>
 
             <CreateRemoveItem containerId={item.id} onRemove={handleRemove}/>

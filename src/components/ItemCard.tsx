@@ -2,6 +2,7 @@ import type Item from "../common/types/Item.ts";
 import {useState} from "react";
 import CreateRemoveItem from "./CreateRemoveItem.tsx";
 import type Container from "../common/types/Container.ts";
+import {Link} from "react-router-dom";
 
 
 interface Props {
@@ -37,6 +38,8 @@ const ItemCard = ({item, container}: Props) => {
             </p>
 
             <CreateRemoveItem containerId={item.id} onRemove={handleRemove}/>
+
+            <Link to={`/items/${item.id}`}>To item page</Link>
 
 
         </li>
